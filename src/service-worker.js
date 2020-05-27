@@ -34,8 +34,7 @@ self.addEventListener('activate', event => event.waitUntil(
   caches.keys().then(function(cacheNames) {
     return Promise.all(
       cacheNames
-        .filter(cacheName => true)
-        .map(cacheName => {
+        .forEach(cacheName => {
           return caches.delete(cacheName);
         })
     )
