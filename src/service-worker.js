@@ -29,7 +29,7 @@ self.addEventListener('message', event => {
       break;
   }
 });
-
+//
 self.addEventListener('activate', event => event.waitUntil(
   caches.keys().then(function(cacheNames) {
     return Promise.all(
