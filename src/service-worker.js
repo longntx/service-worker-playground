@@ -1,4 +1,4 @@
-const VERSION = 6.5;
+const VERSION = 6.6;
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
@@ -30,15 +30,16 @@ self.addEventListener('message', event => {
   }
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(async function() {
-    const cacheNames = await caches.keys();
-    await Promise.all(
-      cacheNames.filter((cacheName) => {
-        // Return true if you want to remove this cache,
-        // but remember that caches are shared across
-        // the whole origin
-      }).map(cacheName => caches.delete(cacheName))
-    );
-  }());
-});
+self.addEventListener('activate', event => event.waitUntil(
+  caches.keys().then(function(cacheNames) {
+    return Promise.all(
+      cacheNames
+        .filter(cacheName => true)
+        .map(cacheName => {
+          return caches.delete(cacheName);
+        })
+    )
+      .then(() => self.clients.claim())
+      .catch(() => console.log('error'));
+  })
+));
