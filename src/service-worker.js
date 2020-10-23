@@ -1,4 +1,4 @@
-const VERSION = 6.6;
+const VERSION = 10.0;
 
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
